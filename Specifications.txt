@@ -1,0 +1,46 @@
+Introduction
+============
+- It is an interpreter made specifically for Brainf**k language.
+- Allows inline as well as multiline commenting.
+- Ignores spaces between scripts.
+
+Features
+========
+* A bf supported file i.e. .bf/.b can be interpreted
+* A session can be created for user to enter the brainf**k commands as in bash shell.  The session can be closed by "exit()" or "!" command.
+* 
+
+Symbols Used 
+============
+
+* > : Move the pointer one cell to the left
+* < : Move the pointer one cell to the right
+* + : Increment the value present in the current cell
+* - : Decrement the value present in the current cell
+* [ : Skips to '[' if value at current cell is '0', else follow next instruction
+* ] : Move backwards if value at current cell is not '0' else keep going
+* . : print the value corresponding to the ascii value at the current cell
+* , : takes and store the ascii value of the input by user and store it in current cell.
+
+Error/Exit Codes
+================
+
+- Exit(1): The fileargument is not passed to the program
+- Exit(2): The file does not exit or is not accessible.
+
+
+Comments
+========
+* Comments are supported as:
+	- Inline Comments using "//"
+	- Multiline Comments using "/**/"
+
+Dependencies
+============
+This project as far has no dependencies, but there are some libraries that may not be preinstalled on your system, which are described below:
+* "regex.h" library
+
+Functions
+========
+
+

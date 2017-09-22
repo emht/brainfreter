@@ -1,0 +1,12 @@
+* Read the input from file having extension of brainf**k supported files.
+* Read input line by line like an interpreter
+* Ignore the spaces between the symbols
+* Allow Commenting with symbols // and "/**/".
+* Allow the shell scripting feature as in bash shell and python shell.
+
+* Take care of all the errors that might be generated and handle them well. Output the error with error codes and the documentation help reference to help user debug the error.
+
+* Make a simple interpreter to read and understand the Brainf**k interpreter
+* Add security feature to prevent unauthorised access to more than assigned 10 cells for the brainf**k interpreter.  i.e. prevent unauthorised access to other variables/pointers.
+
+* Add the regex feature over here.
