@@ -1,5 +1,9 @@
 /** Beware that this program takes allocates continuous memory locations and do not store the previous pointer location.
  * Pointers switch via *pntr-- or *pntr++
+ *******************************************************************************************************************
+ *************************** Global variables, pointers ****************************************************
+ * cells, leftmost, rightmost, 
+ * char *commands;
  */
 
 #include <stdio.h>
@@ -17,40 +21,41 @@
 bool File_flag = false;
 
 // Commands or the characters used by the language
-char *commands = ['<', '>', '+', '-', '[', ']', ',', '.'];
+// char *commands = {'<', '>', '+', '-', '[', ']', ',', '.'};
 
 // Initialising the number of memory cells for the operation
-int *cells = NULL;
 // calloc to initialise the allocated memory to zero
-cells = (int)calloc(sizeof(int) * CELLS);
+char *cells = (char *)calloc(CELLS, sizeof(char));
 
 // Pointer to current cell, leftmost and rightmost cell
-int *current = NULL;
-int *leftmost = NULL, *rightmost = NULL;
+char *current;
+char *leftmost
+char *rightmost;
 
 // Initialising to the start of the memory cells.
-current = &cell[0];
-const leftmost = &cell[0];
-const rightmost = &cell[CELLS - 1];
+// Should do const leftmost and cost rightmost
+leftmost = &cells[0];
+rightmost = &cells[CELLS - 1];
 
 // Shell Initialisation
 int shell();
 
 // Interpreter function
-int interpret(char, int *);
+int interpret(char);
 
 // All the function definitions
-int increment(int *);
-int decrement(int *);
-int leftshift(int *);
-int rightshift(int *);
-int print(int *);
-int input(int *);
-int loopin(int *);
-int loopout(int *);
+int increment();
+int decrement();
+int leftshift();
+int rightshift();
+int print();
+int input();
+int loopin();
+int loopout();
 
 int main(int argc, char *argv[]) {
 	
+
 	// Checking for the filename argument
 	// If the filename to be interpreted is passed, then its output/errors are displayed
 	// Else A current session like bash will open for interpreting bf commands
@@ -88,21 +93,12 @@ int main(int argc, char *argv[]) {
 						// File do not have correct format
 						printf("Unsupported File Format! Only \".b\" and \".bf\" file formats are supported. :(\n");
 						exit(2);
+					}
 				}
+				charac++;
 			}
-			charac++;
 		}
-// Add the Regex feature here.
-/*if(filename != *.bf || filename != *.b) {
-	printf("Unsupported File Format! Only \".bf\" and \".b\" file formats are supported. :("\n);
-}
-else {
-	// Interpret the file and produce output/errors for each line.
-	// Using interpret function which inputs each line from file.
-	// Produce outputs/errors as per the code.
-	char *line = NULL;
-	interpret(line);
-	*/
+
 	}
 	else {
 		// File is inaccessible and do not exist
@@ -111,7 +107,7 @@ else {
 	}
 	
 	// Creating a FILE pointer to access its contents
-	FILE *fileptr;
+	extern FILE *fileptr;
 	fileptr = fopen("filename", "r");
 	
 	if(fileptr == NULL) {
@@ -120,22 +116,21 @@ else {
 	}
 
 	// Creating a char variable for temporarily storing the commands
-	char command;
+	char command = fgetc(fileptr);
 
 	// Change filename to the FILE pointer
-	while(command = fgetc(fileptr) != EOF) {
+	while(command != EOF) {
 		// Initialise the current pointer to location zero in memory cell after interpreting each line
 		// Processing each line and checking via "\r" return character
-		current = &cell[0];
-		while(command != '\r') {
-			interpret(command, current);
+		current = &cells[0];
+		while(command != '\n') {
+			interpret(command);
 			command = fgetc(fileptr);
 		}
 	}
-
-
+	
 	fclose(fileptr);
-	free(cells)
+	free(cells);
 	return 0;
 }
 
@@ -146,7 +141,66 @@ int shell() {
 	return 0;
 }
 
-int interpret(char command, int *current) {
+int increment() {
+	(*current)++;
+	return 0;
+}
+
+int decrement() {
+	(*current)--;
+	return 0;
+}
+
+int leftshift() {
+// Add the feature to check if the pointer is already at the leftmost position
+// If the pointer is already at the leftmost position
+// Warn the User and exit the program with an error code
+	current--;
+	return 0;
+}
+
+int rightshift() {
+// Add the feature to check if the pointer is already at the rightmost position
+// If it is, either increase the size, or exit the program with an error code
+	current++;
+	return 0;
+}
+
+int loopin() {
+	if(*current == 0) {
+		// look for corresponding ']'
+
+	}
+	else {
+		// Follow next instruction i.e. read and execute next symbol
+	}
+	return 0;
+}
+
+int loopout() {
+	if(*current == 0) {
+		// Follow next instruction i.e after ']'
+
+	}
+	else {
+		// Look for its corresponding '['
+	}
+	return 0;
+}
+
+int print() {
+	printf("%c", *current);
+	return 0;
+}
+
+int input() {
+	// Input as an integer so that the ASCII value gets stored
+	// In current as the address of the memory cell is contained in the pointer current
+	scanf("%d", current);
+	return 0;
+}
+
+int interpret(char command) {
 	/** Specification:
 	 * Line is passed to the function so that the interpreted can parse over each of its command
 	 * Current Pointer is passed so that the required modification can take place
@@ -162,99 +216,54 @@ int interpret(char command, int *current) {
 	switch(command) {
 
 		// Increment the value of current cell
-		case "+":
-			increment(current);
+		case '+':
+			increment();
 			break;
 		
 		// Decrement the value of current value
-		case "-":
-			decrement(current);
+		case '-':
+			decrement();
 			break;
 
 		// Shifts the pointer to left side of the current cell
-		case "<":
-			leftshift(current);
+		case '<':
+			leftshift();
 			break;
 
 		// Shifts the pointer to the right side of the current cell
-		case ">":
-			rightshift(current);
+		case '>':
+			rightshift();
 			break;
 
 		// Looks for its correspondent "]", refer specifications for more details.
-		case "[":
-			loopin(current);
+		case '[':
+			loopin();
 			break;
 
 		// Looks for its correspondent "[", refer specifications for more details.
-		case "]":
-			loopout(current);
+		case ']':
+			loopout();
 			break;
 
 		// Prints the value corresponding to ascii value present in current cell to stdout.
-		case ".":
-			print(current);
+		case '.':
+			print();
 			break;
 
 		// ASCII value of the input from stdin is stored in current cell/memory.
-		case ",":
-			input(current);
+		case ',':
+			input();
 			break;
 		
 		// Ignore the space if present
-		case " ":
+		case ' ':
 			// Pass to the next command in the script
 			fileptr++;
 			break;
 		default:
-			
-
-	return 0;
-}
-
-int increment(int *current) {
-	(*current)++;
-	return 0;
-}
-
-int decrement(int *current) {
-	(*current)--;
-	return 0;
-}
-
-int leftshift(int *current) {
-// Add the feature to check if the pointer is already at the leftmost position
-// If the pointer is already at the leftmost position
-// Warn the User and exit the program with an error code
-	current--;
-	return 0;
-}
-
-int rightshift(int *current) {
-// Add the feature to check if the pointer is already at the rightmost position
-// If it is, either increase the size, or exit the program with an error code
-	current++;
-	return 0;
-}
-
-int loopin(int *current) {
-	
-	return 0;
-}
-
-int loopout(int *current) {
-
-	return 0;
-}
-
-int print(int *current) {
-	printf("%c", *current);
-	return 0;
-}
-
-int input(int *current) {
-	// Input as an integer so that the ASCII value gets stored
-	// In current as the address of the memory cell is contained in the pointer current
-	scanf("%d", current);
+			printf("Error!(Code 4)  Unrecognised symbol: %c\n", command);
+			printf("Exitting program...\n");
+			exit(4);
+	}
 	return 0;
 }
