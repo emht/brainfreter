@@ -19,6 +19,20 @@ bool File_flag = false;
 // Commands or the characters used by the language
 char *commands = ['<', '>', '+', '-', '[', ']', ',', '.'];
 
+// Initialising the number of memory cells for the operation
+int *cells = NULL;
+// calloc to initialise the allocated memory to zero
+cells = (int)calloc(sizeof(int) * CELLS);
+
+// Pointer to current cell, leftmost and rightmost cell
+int *current = NULL;
+int *leftmost = NULL, *rightmost = NULL;
+
+// Initialising to the start of the memory cells.
+current = &cell[0];
+const leftmost = &cell[0];
+const rightmost = &cell[CELLS - 1];
+
 // Shell Initialisation
 int shell();
 
@@ -107,20 +121,6 @@ else {
 
 	// Creating a char variable for temporarily storing the commands
 	char command;
-
-	// Initialising the number of memory cells for the operation
-	int *cells = NULL;
-	// calloc to initialise the allocated memory to zero
-	cells = (int)calloc(sizeof(int) * CELLS);
-	
-	// Pointer to current cell, leftmost and rightmost cell
-	int *current = NULL;
-	int *leftmost = NULL, *rightmost = NULL;
-	
-	// Initialising to the start of the memory cells.
-	current = &cell[0];
-	leftmost = &cell[0];
-	rightmost = &cell[CELLS - 1];
 
 	// Change filename to the FILE pointer
 	while(command = fgetc(fileptr) != EOF) {
