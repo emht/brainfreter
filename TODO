@@ -10,3 +10,15 @@
 * Add security feature to prevent unauthorised access to more than assigned 10 cells for the brainf**k interpreter.  i.e. prevent unauthorised access to other variables/pointers.
 
 * Add the regex feature over here.
+* Add the feature to automatically move to next cell after taking input (which may or may not be useful)
+
+* Clarify all the comments and delete all the blobs if present.
+
+* Make all these functions in a separate library and include them in the driving program via its header file.
+
+* Once successfully developed, reimplement this whole interpreter in c++ incorporating OOP compatibility.
+
+* Add the graphical interface if possible, both in C and C++.
+
+
+* Like some Web Apps, add a feature to read strings and convert it into brainf**k code.  And integrate your C code with backend of your website written in C. :P

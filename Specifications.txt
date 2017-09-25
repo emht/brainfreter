@@ -25,9 +25,12 @@ Symbols Used
 Error/Exit Codes
 ================
 
-- Exit(1): The fileargument is not passed to the program
-- Exit(2): The file does not exit or is not accessible.
-
+- Exit(1): The file does not exit or is not accessible.
+- Exit(2): Unsupported file format.  Only ".b" and ".bf" file formats are supported in this version.
+- Exit(3): Cannot open file in read mode, check if its permissible or not in use anywhere.
+- Unauthorized access to private memory location
+- Memory cell's value can't be negative, the value of cell's reached its boundaries
+- Already at leftmost cell/pointer can't perform this operation.
 
 Comments
 ========
