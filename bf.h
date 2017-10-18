@@ -2,8 +2,13 @@
   * Used in my brainfreter program
   */
 
+// The number of cells to be considered by the BrainF**k Interpreter
+#define CELLS 10
+
 // Shell Initialisation
-int shell();
+int shell() {
+  printf("Hello!\n");
+}
 
 // Interpreter function
 int interpret(char);

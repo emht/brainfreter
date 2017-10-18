@@ -46,5 +46,9 @@ This project as far has no dependencies, but there are some libraries that may n
 
 Functions
 ========
+1. 
+2. 
+3. 
 
+Note: I can make this program only using the array and flag and without incorporating pointers within.
 
